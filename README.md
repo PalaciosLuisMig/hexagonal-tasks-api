@@ -122,6 +122,16 @@ curl -s -X PUT http://localhost:8080/tasks/<id>/complete
 curl -s -X DELETE http://localhost:8080/tasks/<id>
 ```
 
+### Probar la API con Insomnia
+
+En la raíz del repo tienes la colección [`insomnia-export.json`](insomnia-export.json) con
+los 4 endpoints listos (crear, listar, completar, eliminar). Para usarla:
+
+1. Abre Insomnia → `Import/Export` → `Import Data` → `From File`.
+2. Selecciona `insomnia-export.json`.
+3. Ajusta los IDs de ejemplo (`be485071-...`) de *Complete task* y *Delete task* con los de
+   tus tareas reales (métele el ID que devuelve `POST /tasks`).
+
 ## 6. Cambiar de adaptador de persistencia
 
 En `application.properties`:

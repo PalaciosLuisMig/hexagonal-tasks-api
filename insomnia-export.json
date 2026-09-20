@@ -1,78 +1,105 @@
-{
-  "_type": "export",
-  "__export_format": 4,
-  "__export_date": "2026-09-20T11:31:00.000Z",
-  "__export_source": "opencode",
-  "resources": [
-    {
-      "_id": "wrk_tasks_api",
-      "_type": "workspace",
-      "name": "Tasks API (Hexagonal)",
-      "description": "",
-      "scope": "collection",
-      "parentId": null
-    },
-    {
-      "_id": "env_tasks_api_base",
-      "_type": "environment",
-      "name": "Base Environment",
-      "data": {
-        "base_url": "http://localhost:8080",
-        "task_id": "REEMPLAZA_CON_EL_ID_DE_UNA_TAREA"
-      },
-      "color": "#7d69cb",
-      "parentId": "wrk_tasks_api"
-    },
-    {
-      "_id": "grp_tasks",
-      "_type": "request_group",
-      "name": "Tasks",
-      "description": "",
-      "parentId": "wrk_tasks_api",
-      "environment": {}
-    },
-    {
-      "_id": "req_create_task",
-      "_type": "request",
-      "name": "Create Task",
-      "parentId": "grp_tasks",
-      "method": "POST",
-      "url": "{{ _.base_url }}/tasks",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n  \"title\": \"Comprar leche\",\n  \"description\": \"Ir al supermercado\",\n  \"dueDate\": \"2026-09-25\"\n}"
-      },
-      "headers": []
-    },
-    {
-      "_id": "req_list_tasks",
-      "_type": "request",
-      "name": "List Tasks",
-      "parentId": "grp_tasks",
-      "method": "GET",
-      "url": "{{ _.base_url }}/tasks",
-      "body": {},
-      "headers": []
-    },
-    {
-      "_id": "req_complete_task",
-      "_type": "request",
-      "name": "Complete Task",
-      "parentId": "grp_tasks",
-      "method": "PUT",
-      "url": "{{ _.base_url }}/tasks/{{ _.task_id }}/complete",
-      "body": {},
-      "headers": []
-    },
-    {
-      "_id": "req_delete_task",
-      "_type": "request",
-      "name": "Delete Task",
-      "parentId": "grp_tasks",
-      "method": "DELETE",
-      "url": "{{ _.base_url }}/tasks/{{ _.task_id }}",
-      "body": {},
-      "headers": []
-    }
-  ]
-}
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: My first collection
+meta:
+  id: wrk_2f083381f1ae42abab19d9e5bb8d0385
+  created: 1789922026442
+  modified: 1789922037229
+  description: ""
+collection:
+  - url: http://localhost:8080/tasks
+    name: Create task
+    meta:
+      id: req_2bb7ea3e0c9f4c3f8443d3d699ecbc1d
+      created: 1789922275133
+      modified: 1789930753861
+      isPrivate: false
+      description: ""
+      sortKey: -1789922275133
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"title": "Hacer el almuerzo",
+        	"description":"Arroz con atun real",
+        	"dueDate": "2026-10-01"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/tasks
+    name: List tasks
+    meta:
+      id: req_e72f180726b84eb4973ee7c535e1bf06
+      created: 1789922375903
+      modified: 1789932266010
+      isPrivate: false
+      description: ""
+      sortKey: -1789922375903
+    method: GET
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/tasks/be485071-336c-4e99-9e02-9940881ee540/complete
+    name: Complete task
+    meta:
+      id: req_e8764c4b0a7d4535b101bb7ea3441576
+      created: 1789922487573
+      modified: 1789932528979
+      isPrivate: false
+      description: ""
+      sortKey: -1789922487573
+    method: PUT
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/tasks/be485071-336c-4e99-9e02-9940881ee540
+    name: Delete task
+    meta:
+      id: req_fcc91e04863748f681676df45b59e2e2
+      created: 1789932520909
+      modified: 1789932571074
+      isPrivate: false
+      description: ""
+      sortKey: -1789932520909
+    method: DELETE
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_7f506aabe375299028fd28a65923c8f4c5d204d1
+    created: 1789922038776
+    modified: 1789922038776
+environments:
+  name: Base Environment
+  meta:
+    id: env_7f506aabe375299028fd28a65923c8f4c5d204d1
+    created: 1789922026443
+    modified: 1789922037228
+    isPrivate: false
