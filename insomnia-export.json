@@ -1,0 +1,78 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-20T11:31:00.000Z",
+  "__export_source": "opencode",
+  "resources": [
+    {
+      "_id": "wrk_tasks_api",
+      "_type": "workspace",
+      "name": "Tasks API (Hexagonal)",
+      "description": "",
+      "scope": "collection",
+      "parentId": null
+    },
+    {
+      "_id": "env_tasks_api_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "task_id": "REEMPLAZA_CON_EL_ID_DE_UNA_TAREA"
+      },
+      "color": "#7d69cb",
+      "parentId": "wrk_tasks_api"
+    },
+    {
+      "_id": "grp_tasks",
+      "_type": "request_group",
+      "name": "Tasks",
+      "description": "",
+      "parentId": "wrk_tasks_api",
+      "environment": {}
+    },
+    {
+      "_id": "req_create_task",
+      "_type": "request",
+      "name": "Create Task",
+      "parentId": "grp_tasks",
+      "method": "POST",
+      "url": "{{ _.base_url }}/tasks",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Comprar leche\",\n  \"description\": \"Ir al supermercado\",\n  \"dueDate\": \"2026-09-25\"\n}"
+      },
+      "headers": []
+    },
+    {
+      "_id": "req_list_tasks",
+      "_type": "request",
+      "name": "List Tasks",
+      "parentId": "grp_tasks",
+      "method": "GET",
+      "url": "{{ _.base_url }}/tasks",
+      "body": {},
+      "headers": []
+    },
+    {
+      "_id": "req_complete_task",
+      "_type": "request",
+      "name": "Complete Task",
+      "parentId": "grp_tasks",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/tasks/{{ _.task_id }}/complete",
+      "body": {},
+      "headers": []
+    },
+    {
+      "_id": "req_delete_task",
+      "_type": "request",
+      "name": "Delete Task",
+      "parentId": "grp_tasks",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/tasks/{{ _.task_id }}",
+      "body": {},
+      "headers": []
+    }
+  ]
+}
