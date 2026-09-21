@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm.multistage
+    image: hexagonal-tasks-api:jvm
+    ports:
+      - "8080:8080"
+
+  api-native:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.native.multistage
+    image: hexagonal-tasks-api:native
+    ports:
+      - "8081:8080"
+    profiles: ["native"]

@@ -1,5 +1,10 @@
-*
-!target/*-runner
-!target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
+.git
+target
+*.log
+*.iml
+.idea
+.vscode
+.DS_Store
+.quarkus
+.certs
+native-env.sh

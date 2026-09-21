@@ -150,7 +150,55 @@ app.persistence=jpa      # ← adapter JPA (Panache + H2 en memoria)
 - `TaskServiceTest` (application) — use cases con un *fake* del puerto.
 - `TaskResourceTest` (integration) — la rebanada completa HTTP→core→adapter vía `@QuarkusTest`.
 
-## 8. Para seguir aprendiendo (retos)
+## 8. Dockerizar
+
+Requiere Docker con el daemon corriendo (en Windows/WSL: Docker Desktop con la
+integración WSL activada). El proyecto incluye dos `Dockerfile` multi-etapa **autónomos**:
+construyen la app dentro del contenedor, sin necesidad de Maven/Java local.
+
+### Imagen JVM (recomendada)
+
+```bash
+docker build -f src/main/docker/Dockerfile.jvm.multistage -t hexagonal-tasks-api:jvm .
+docker run -i --rm -p 8080:8080 hexagonal-tasks-api:jvm
+```
+
+Imagen con JVM (~500MB): build más rápido y fácil de depurar.
+
+### Imagen nativa (Mandrel)
+
+```bash
+docker build -f src/main/docker/Dockerfile.native.multistage -t hexagonal-tasks-api:native .
+docker run -i --rm -p 8080:8080 hexagonal-tasks-api:native
+```
+
+Imagen sin JVM (~100MB) y arranque en milisegundos. La primera build tarda
+**10-15 minutos** y necesita ~4GB de RAM.
+
+### Docker Compose
+
+```bash
+docker compose up --build                    # API JVM    → http://localhost:8080
+docker compose --profile native up --build   # API nativa → http://localhost:8081
+```
+
+### Probar la imagen
+
+El adapter por defecto es `app.persistence=memory` (H2 embebida), así que el
+contenedor **no necesita base de datos externa**:
+
+```bash
+curl -s http://localhost:8080/tasks
+curl -s -X POST http://localhost:8080/tasks \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Aprender hexágono","dueDate":"2026-10-01"}'
+```
+
+> Nota: con `app.persistence=jpa` los datos viven en un H2 embebido **dentro del
+> contenedor**; reiniciarlo los pierde. Para estado persistente habría que montar un
+> volumen o usar una base de datos externa.
+
+## 9. Para seguir aprendiendo (retos)
 
 1. Añade un caso de uso nuevo, p. ej. `UpdateTaskDueDateUseCase`, sin tocar los adapters.
 2. Sustituye H2 por PostgreSQL (adapter `jpa`) cambiando solo el `datasource` y probando en nativo.
